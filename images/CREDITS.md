@@ -15,8 +15,12 @@ as entries become real.
 | otter-lake.jpg | Otter Lake at sunrise, Blue Ridge Parkway MP63 (NPS) | PDM | https://live.staticflickr.com/7778/17919027719_dfd04c0abf_b.jpg |
 | overlook.jpg | Blue Ridge Parkway overlook, layered ridges | PDM | https://live.staticflickr.com/7377/10195743655_a34e73a418_b.jpg |
 | lavender-farm.jpg | Lavender farm with red barn, Hood River Valley OR | PDM | https://live.staticflickr.com/65535/48283244247_80c7142b89_b.jpg |
-| room.jpg | Chesterfield sofa room (view-on-wall backdrop) — recolored from pink to warm sepia by us | PDM | https://live.staticflickr.com/3789/9200134915_de003ed2f3_b.jpg |
-| room-linen.jpg | Linen sofa room (second view-on-wall backdrop) | ours | provided by us (re-encoded from image0.png) |
+| room-linen.jpg | Linen sofa living room (view-on-wall backdrop) | ours | provided by us (re-encoded from image0.png) |
+| room-bedroom.jpg | Teal bedroom, tufted headboard (backdrop) | CC0 | https://images.rawpixel.com (px1083039) via Openverse |
+| room-bath.jpg | Freestanding tub bathroom (backdrop) — wall canvases digitally removed by us | PDM | https://live.staticflickr.com/5321/9200494955_c3d1db5262_b.jpg |
+| room-desk.jpg | Walnut desk, typewriter, white brick wall (desk backdrop) | CC0 | https://images.rawpixel.com (bs538) via Openverse |
+
+(chesterfield backdrop removed 2026-07-04 — didn't meet the realism bar)
 
 Found via Openverse (openverse.org), 2026-07-03.
 

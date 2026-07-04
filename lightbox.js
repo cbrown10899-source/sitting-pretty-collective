@@ -35,7 +35,10 @@
     '#bc-lb .lb-sizes { display:none; margin-top:14px; gap:10px; }',
     '#bc-lb.wall .lb-sizes { display:flex; }',
     '#bc-lb .lb-sizes button { font-size:.85rem; letter-spacing:.1em; padding:8px 14px; }',
-    '#bc-lb .lb-sizes button.on { background:#a8853c; color:#1b2a44; }'
+    '#bc-lb .lb-sizes button.on { background:#a8853c; color:#1b2a44; }',
+    '#bc-lb .lb-sizes button:disabled { opacity:.3; cursor:not-allowed; }',
+    '#bc-lb .lb-sizes button:disabled:hover { background:none; color:#f6f0e3; }',
+    '#bc-lb .lb-pin { position:absolute; top:16px; left:200px; font-size:.85rem; letter-spacing:.12em; }'
   ].join('\n');
   var style = document.createElement('style');
   style.textContent = css;
@@ -76,6 +79,28 @@
   });
   if (!items.length) return;
 
+  // Pinterest: turn every “Pin it” button into a real share link
+  function pinShareUrl(imgUrl, description) {
+    var absMedia = new URL(imgUrl, location.href).href;
+    return 'https://www.pinterest.com/pin/create/button/' +
+      '?url=' + encodeURIComponent(location.href) +
+      '&media=' + encodeURIComponent(absMedia) +
+      '&description=' + encodeURIComponent((description ? description + ' — ' : '') + 'Sitting Pretty Collective');
+  }
+  document.querySelectorAll('a.pinit').forEach(function (a) {
+    var holder = a.closest('.frame');
+    var ph = holder ? holder.querySelector('.photo') : null;
+    if (!ph) return;
+    var bg = ph.style.backgroundImage || getComputedStyle(ph).backgroundImage;
+    var m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+    if (!m) return;
+    var cap = '';
+    var fig = a.closest('figure');
+    if (fig) { var fc = fig.querySelector('figcaption'); if (fc) cap = fc.textContent.trim(); }
+    a.href = pinShareUrl(m[1], cap);
+    a.target = '_blank'; a.rel = 'noopener';
+  });
+
   var lb = document.createElement('div');
   lb.id = 'bc-lb';
   lb.innerHTML =
@@ -90,12 +115,14 @@
     '  <button data-in="24" class="on">24&Prime; &middot; $95</button><button data-in="36">36&Prime; &middot; $145</button>' +
     '</div>' +
     '<div class="lb-rooms lb-sizes">' +
-    '  <button data-room="0" class="on">CHESTERFIELD</button><button data-room="1">LINEN</button>' +
+    '  <button data-room="0" class="on">LIVING ROOM</button><button data-room="1">BEDROOM</button>' +
+    '  <button data-room="2">BATH</button><button data-room="3">DESK</button>' +
     '</div>' +
     '<button class="lb-prev" title="Previous">&lsaquo;</button>' +
     '<button class="lb-next" title="Next">&rsaquo;</button>' +
     '<button class="lb-close" title="Close">CLOSE &times;</button>' +
-    '<button class="lb-wall-btn">VIEW ON WALL</button>';
+    '<button class="lb-wall-btn">VIEW ON WALL</button>' +
+    '<button class="lb-pin" title="Save to Pinterest">&#128204; PIN</button>';
   document.body.appendChild(lb);
 
   var idx = 0, wallMode = false, sizeIn = 24, roomIdx = 0;
@@ -104,10 +131,15 @@
   // Per-room calibration: sofaFraction = sofa width as share of image width,
   // sofaInches = the real sofa size, wallY = vertical center of the hanging zone.
   // sofaTopY = where the sofa back begins (share of image height); prints must hang above it
+  // sizes = print long-edges offered in that scene; boost = per-scene presentation multiplier
   var ROOMS = [
-    { file: 'room.jpg',       name: 'CHESTERFIELD', ar: '1 / 1',       sofaFraction: 0.85, sofaInches: 84, wallY: 0.41, sofaTopY: 0.55, tag: 'sofa shown: 7 ft — prints to scale' },
-    { file: 'room-linen.jpg', name: 'LINEN',        ar: '1448 / 1086', sofaFraction: 0.73, sofaInches: 96, wallY: 0.32, sofaTopY: 0.58, tag: 'sofa shown: 8 ft — prints to scale' }
+    { file: 'room-linen.jpg',   name: 'LIVING ROOM', ar: '1448 / 1086', wallY: 0.32, sofaTopY: 0.58, sizes: [12, 18, 24, 36], boost: 1.0,  tag: 'sofa shown: 8 ft' },
+    { file: 'room-bedroom.jpg', name: 'BEDROOM',     ar: '1024 / 767',  wallY: 0.15, sofaTopY: 0.29, sizes: [12, 18, 24],     boost: 1.0,  tag: 'queen headboard shown: 5 ft' },
+    { file: 'room-bath.jpg',    name: 'BATH',        ar: '1024 / 726',  wallY: 0.28, sofaTopY: 0.50, sizes: [12, 18, 24],     boost: 1.0,  tag: 'tub shown: 5½ ft' },
+    { file: 'room-desk.jpg',    name: 'DESK',        ar: '1024 / 683',  wallY: 0.24, sofaTopY: 0.46, sizes: [12, 18, 24],     boost: 0.85, tag: 'desk shown: 5½ ft' }
   ];
+  // presentation sizing: print long edge as a share of room width (reads the way prints feel in person)
+  var SIZE_FRAC = { 12: 0.22, 18: 0.29, 24: 0.36, 36: 0.48 };
 
   function applyRoom() {
     var R = ROOMS[roomIdx];
@@ -118,6 +150,13 @@
     lb.querySelectorAll('.lb-rooms button').forEach(function (b, i) {
       b.classList.toggle('on', i === roomIdx);
     });
+    // only offer sizes that physically fit this scene
+    if (R.sizes.indexOf(sizeIn) < 0) sizeIn = R.sizes[R.sizes.length - 1];
+    lb.querySelectorAll('.lb-sizes button[data-in]').forEach(function (b) {
+      var v = parseInt(b.getAttribute('data-in'), 10);
+      b.disabled = R.sizes.indexOf(v) < 0;
+      b.classList.toggle('on', v === sizeIn);
+    });
   }
 
   function fitPrint() {
@@ -126,11 +165,17 @@
     var probe = new Image();
     probe.onload = function () {
       var room = lb.querySelector('.lb-room');
-      var ppi = (room.clientWidth * R.sofaFraction) / R.sofaInches; // pixels per real inch
       var ar = probe.naturalWidth / probe.naturalHeight;
+      // if the LARGEST size offered would overflow this room's wall zone, scale the whole
+      // size ladder down together — keeps every size visibly distinct instead of capping flat
+      var zone = room.clientHeight * R.sofaTopY - 20;
+      var maxLong = room.clientWidth * SIZE_FRAC[R.sizes[R.sizes.length - 1]] * (R.boost || 1);
+      var maxH = ar >= 1 ? maxLong / ar : maxLong;
+      var fit = maxH > zone ? zone / maxH : 1;
+      var longEdgePx = room.clientWidth * SIZE_FRAC[sizeIn] * (R.boost || 1) * fit;
       var w, h, wIn, hIn;
-      if (ar >= 1) { w = sizeIn * ppi; h = w / ar; wIn = sizeIn; hIn = Math.round(sizeIn / ar); }
-      else { h = sizeIn * ppi; w = h * ar; hIn = sizeIn; wIn = Math.round(sizeIn * ar); }
+      if (ar >= 1) { w = longEdgePx; h = w / ar; wIn = sizeIn; hIn = Math.round(sizeIn / ar); }
+      else { h = longEdgePx; w = h * ar; hIn = sizeIn; wIn = Math.round(sizeIn * ar); }
       var print = lb.querySelector('.room-print');
       print.style.width = Math.round(w) + 'px';
       print.style.height = Math.round(h) + 'px';
@@ -168,6 +213,11 @@
   lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
   lb.querySelector('.lb-close').addEventListener('click', function (e) { e.stopPropagation(); close(); });
   lb.querySelector('.lb-wall-btn').addEventListener('click', function (e) { e.stopPropagation(); setWall(!wallMode); });
+  lb.querySelector('.lb-pin').addEventListener('click', function (e) {
+    e.stopPropagation();
+    var it = items[idx];
+    window.open(pinShareUrl(it.url, it.caption), '_blank', 'noopener,width=750,height=650');
+  });
   lb.querySelectorAll('.lb-sizes button[data-in]').forEach(function (b) {
     b.addEventListener('click', function (e) {
       e.stopPropagation();
