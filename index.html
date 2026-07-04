@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <title>Sitting Pretty Collective — A Travel Journal of Flowers, Nature &amp; Old Streets</title>
 <meta name="description" content="A husband-and-wife travel journal: gardens and wildflowers, quiet nature, and quaint old streets — photographed and written on the road.">
 <meta name="robots" content="noindex"><!-- curation phase: remove at launch -->
@@ -15,6 +15,7 @@
     --sage:#7c8f6d; --cream:#f6f0e3; --ecru:#ece2cc; --brass:#a8853c; --ink:#23242c;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { overflow-x:hidden; max-width:100%; }
   body { background:var(--cream); color:var(--ink); line-height:1.7;
          font-family:'Cormorant Garamond',Palatino,'Palatino Linotype',Georgia,serif; font-size:1.05rem; }
   .caps { text-transform:uppercase; letter-spacing:.24em; font-family:'Cormorant Garamond',Georgia,serif; }
@@ -42,7 +43,8 @@
 
   nav { text-align:center; padding:15px 10px; border-top:1px solid var(--brass); border-bottom:1px solid var(--brass);
         background:var(--ecru); }
-  nav a { color:var(--navy); text-decoration:none; margin:0 16px; font-size:.82rem; white-space:nowrap; }
+  nav { display:flex; flex-wrap:wrap; justify-content:center; column-gap:26px; row-gap:8px; }
+  nav a { color:var(--navy); text-decoration:none; margin:0; font-size:.82rem; white-space:nowrap; }
   nav a:hover { color:var(--burgundy); }
 
   /* ---- Hero ---- */
@@ -306,15 +308,19 @@
       <div class="follow-note">Fresh pins land here automatically as we save them on the road.</div>
     </div>
 
-    <!-- live board — updates itself whenever we pin -->
-    <div style="margin-top:28px;">
+    <!-- live board — updates itself whenever we pin; container clips it on small screens -->
+    <div style="margin-top:28px; max-width:100%; overflow-x:hidden; display:flex; justify-content:center; flex-direction:column; align-items:center;">
       <div class="caps" style="text-align:center; color:var(--burgundy); font-size:.72rem; margin-bottom:12px;">Live from our board</div>
-      <a data-pin-do="embedUser"
-         data-pin-board-width="1000"
+      <a id="pin-board" data-pin-do="embedUser"
          data-pin-scale-height="320"
          data-pin-scale-width="110"
          href="https://www.pinterest.com/sittingprettycollective/"></a>
     </div>
+    <script>
+      // size the live board to the screen before Pinterest renders it
+      document.getElementById('pin-board').setAttribute('data-pin-board-width',
+        Math.min(920, Math.floor(window.innerWidth * 0.92)));
+    </script>
     <script async defer src="https://assets.pinterest.com/js/pinit.js"></script>
   </div>
 </div>
