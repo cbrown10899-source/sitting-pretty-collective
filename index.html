@@ -124,6 +124,27 @@
 
   footer { background:var(--navy); color:#b9c1d2; text-align:center; padding:28px 20px; font-size:.85rem; }
   footer .brass { color:var(--brass); }
+
+  /* ---- guest book & gas fund ---- */
+  .guest { background:#fffdf6; border-top:1px solid var(--brass); padding:60px 24px; }
+  .guest .inner { max-width:620px; margin:0 auto; text-align:center; }
+  .guest .caps { color:var(--burgundy); font-size:.78rem; }
+  .guest h3 { color:var(--navy); font-size:1.7rem; font-weight:500; margin:6px 0 10px; }
+  .guest p.blurb { font-style:italic; color:#575349; margin-bottom:18px; }
+  .coffee-btn { display:inline-block; background:var(--hunter); color:var(--cream); text-decoration:none;
+                border:1px solid var(--brass); padding:13px 32px; font-size:.85rem; letter-spacing:.16em; }
+  .coffee-btn:hover { background:var(--brass); color:var(--navy); }
+  .guest form { margin-top:16px; text-align:left; }
+  .guest label { display:block; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+                 color:var(--hunter); margin:14px 0 6px; }
+  .guest input, .guest textarea { width:100%; background:#fff; border:1px solid #d8cbab; padding:12px 14px;
+                 font-family:'Cormorant Garamond',Georgia,serif; font-size:1.05rem; color:var(--ink); }
+  .guest input:focus, .guest textarea:focus { outline:none; border-color:var(--brass); }
+  .guest .send-btn { margin-top:18px; background:var(--navy); color:var(--cream); border:1px solid var(--brass);
+                 padding:13px 32px; font-size:.85rem; letter-spacing:.16em; cursor:pointer;
+                 font-family:'Cormorant Garamond',Georgia,serif; text-transform:uppercase; }
+  .guest .send-btn:hover { background:var(--brass); color:var(--navy); }
+  .guest .fine { font-style:italic; color:#8b8574; font-size:.85rem; margin-top:12px; }
 </style>
 </head>
 <body>
@@ -138,7 +159,7 @@
 </header>
 
 <nav class="caps">
-  <a href="#journal">The Journal</a><a href="#">Gardens &amp; Flowers</a><a href="#">Old Streets</a><a href="#">Nature</a><a href="#health">Health</a><a href="#pinterest">Pinterest</a><a href="#about">About</a>
+  <a href="#journal">The Journal</a><a href="#">Gardens &amp; Flowers</a><a href="#">Old Streets</a><a href="#">Nature</a><a href="#health">Health</a><a href="#pinterest">Pinterest</a><a href="#about">About</a><a href="#notes">Guest Book</a>
 </nav>
 
 <div class="hero">
@@ -352,6 +373,46 @@
   unpacked — every entry a photograph, a place, and the story of how we
   found it.</p>
 </div>
+
+<div class="guest" id="notes">
+  <div class="inner">
+    <div class="caps">The Gas Fund</div>
+    <h3>Keep the Thermos Full</h3>
+    <p class="blurb">If the journal earned a smile, a coffee keeps the wheels
+    turning and the entries coming. No subscriptions, no fuss — just gas
+    money and gratitude.</p>
+    <!-- TODO: point at the real Ko-fi/BuyMeACoffee page once created -->
+    <a class="coffee-btn caps" href="#" onclick="alert('The tip jar opens with our Ko-fi page — soon!'); return false;">☕ Buy us a coffee</a>
+
+    <div class="fleuron" style="margin:36px 0 26px;">❦ ❦ ❦</div>
+
+    <div class="caps">The Guest Book</div>
+    <h3>Leave a Note</h3>
+    <p class="blurb">Tell us where you're writing from, what to photograph
+    next, or which entry felt like home.</p>
+    <form id="guest-form">
+      <label for="gname">Your name</label>
+      <input id="gname" type="text" placeholder="A fellow traveler">
+      <label for="gnote">Your note</label>
+      <textarea id="gnote" rows="4" placeholder="We read every one."></textarea>
+      <div style="text-align:center;"><button class="send-btn" type="submit">Send the note</button></div>
+    </form>
+    <div class="fine">Opens your mail app — your note travels by honest post.</div>
+  </div>
+</div>
+<script>
+  // interim: notes travel via the visitor's own mail app.
+  // TODO before public launch: swap to a Formspree endpoint so no address is exposed.
+  document.getElementById('guest-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var n = document.getElementById('gname').value.trim() || 'A fellow traveler';
+    var m = document.getElementById('gnote').value.trim();
+    if (!m) { document.getElementById('gnote').focus(); return; }
+    location.href = 'mailto:cbrown10899@gmail.com'
+      + '?subject=' + encodeURIComponent('Guest book — note from ' + n)
+      + '&body=' + encodeURIComponent(m + '\n\n— ' + n);
+  });
+</script>
 
 <div class="tartan tartan-band"></div>
 
