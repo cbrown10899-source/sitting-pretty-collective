@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entry No. 001 — Wildflowers on the Parkway · Sitting Pretty Collective</title>
+<meta name="description" content="Wildflowers along the split-rail fences of the Blue Ridge Parkway — Entry No. 001 in the Sitting Pretty Collective travel journal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#1b2a44; --hunter:#28442e; --burgundy:#6e2131; --sage:#7c8f6d;
+          --cream:#f6f0e3; --ecru:#ece2cc; --brass:#a8853c; --ink:#23242c; --pinred:#b7081f; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--cream); color:var(--ink); line-height:1.75;
+         font-family:'Cormorant Garamond',Palatino,Georgia,serif; font-size:1.12rem; }
+  .caps { text-transform:uppercase; letter-spacing:.24em; }
+  .tartan { height:18px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 30px, rgba(168,133,60,.55) 30px 33px, transparent 33px 62px, rgba(110,33,49,.5) 62px 67px, transparent 67px 96px, rgba(124,143,109,.35) 96px 99px),
+      repeating-linear-gradient(0deg, #1b2a44 0 7px, #21334f 7px 14px); }
+
+  .masthead { text-align:center; padding:26px 20px 18px; border-bottom:1px solid var(--brass); }
+  .masthead a { text-decoration:none; color:var(--navy); }
+  .masthead .mini-mono { display:inline-flex; width:44px; height:44px; border:2px solid var(--navy);
+      border-radius:50%; align-items:center; justify-content:center; font-weight:600; margin-bottom:6px; }
+  .masthead .wordmark { font-size:1rem; color:var(--navy); }
+
+  article { max-width:720px; margin:0 auto; padding:52px 24px 30px; }
+  .entry-no { text-align:center; color:var(--burgundy); font-size:.8rem; }
+  h1 { text-align:center; color:var(--navy); font-size:clamp(2rem,5vw,3rem); font-weight:500;
+       line-height:1.15; margin:12px 0 8px; }
+  .placeline { text-align:center; color:var(--hunter); font-size:.85rem; letter-spacing:.18em;
+               text-transform:uppercase; }
+  .fleuron { text-align:center; color:var(--brass); margin:18px 0 34px; letter-spacing:.5em; }
+
+  .weather { max-width:440px; margin:20px auto 0; border:1px solid var(--brass); background:#fffdf6;
+             text-align:center; padding:12px 20px; }
+  .weather .wlabel { display:block; font-size:.66rem; color:var(--burgundy); margin-bottom:4px; }
+  .weather .wnow { font-size:1.05rem; color:var(--hunter); }
+
+  .figure { margin:34px 0; }
+  .frame { border:1px solid var(--brass); padding:6px; background:#fffdf6; position:relative; }
+  .photo { display:flex; align-items:center; justify-content:center; color:var(--cream); font-size:4.5rem; }
+  .cover { height:380px; background:linear-gradient(160deg,#28442e 0%,#57794f 45%,#c9a0a3 100%); }
+  .ph2 { height:300px; background:linear-gradient(160deg,#6e2131,#a86477 60%,#d9a5a0); }
+  .ph3 { height:300px; background:linear-gradient(160deg,#3c5d8a,#9ab173); }
+  .pinit { position:absolute; top:14px; right:14px; background:var(--pinred); color:#fff; border-radius:999px;
+           font-family:'Segoe UI',Arial,sans-serif; font-size:.75rem; font-weight:700; padding:7px 16px;
+           text-decoration:none; }
+  figcaption { text-align:center; font-style:italic; color:#6d675a; font-size:.98rem; padding-top:10px; }
+
+  .lede { font-family:'IM Fell English',Georgia,serif; font-style:italic; font-size:1.35rem;
+          color:var(--hunter); text-align:center; margin:0 0 28px; line-height:1.5; }
+  p + p { margin-top:18px; }
+
+  .fieldbag { border:1px solid var(--brass); background:#fffdf6; margin-top:40px; padding:24px 26px; }
+  .fieldbag h2 { text-align:center; color:var(--navy); font-weight:500; font-size:1rem; }
+  .fieldbag .sub { text-align:center; font-style:italic; color:#8b8574; font-size:.9rem; margin-bottom:14px; }
+  .fieldbag ul { list-style:none; }
+  .fieldbag li { padding:10px 4px; border-top:1px dotted #cdbf9d; }
+  .fieldbag .item { font-weight:600; color:var(--navy); }
+  .fieldbag .why { font-size:.92rem; font-style:italic; color:#6d675a; }
+  .find-links { font-size:.88rem; margin-top:6px; }
+  .find-links .lbl { color:var(--burgundy); font-style:italic; }
+  .find-links a { color:var(--hunter); text-decoration:underline; text-decoration-color:var(--brass); }
+  .find-links a:hover { color:var(--burgundy); }
+  .disclosure { text-align:center; font-style:italic; font-size:.84rem; color:#8b8574; margin-top:14px; }
+
+  .pin-section { background:#fffdf6; border:1px solid #ddd2b8; margin:46px 0 10px; padding:28px; }
+  .pin-section h2 { text-align:center; color:var(--navy); font-weight:500; font-size:1.5rem; }
+  .pin-section .sub { text-align:center; font-style:italic; color:#8b8574; font-size:.92rem; margin:4px 0 22px; }
+  .pin-card { display:flex; gap:18px; align-items:flex-start; border:1px solid #e5dcc4; border-radius:14px;
+              overflow:hidden; background:#fff; }
+  .pin-card + .pin-card { margin-top:16px; }
+  .pin-thumb { width:150px; min-height:150px; align-self:stretch; display:flex; align-items:center;
+               justify-content:center; font-size:2.4rem; color:var(--cream); flex-shrink:0; }
+  .pin-copy { padding:14px 16px 14px 0; }
+  .pin-copy .plabel { font-size:.7rem; color:var(--pinred); font-weight:700;
+                      font-family:'Segoe UI',Arial,sans-serif; letter-spacing:.12em; }
+  .pin-copy h3 { color:var(--navy); font-size:1.15rem; font-weight:600; margin:4px 0; }
+  .pin-copy p { font-size:.95rem; color:#575349; margin:0; }
+  .pin-copy .board { font-size:.8rem; color:#8b8574; margin-top:8px; font-style:italic; }
+
+  .entry-nav { display:flex; justify-content:space-between; max-width:720px; margin:0 auto;
+               padding:26px 24px 56px; font-size:.85rem; }
+  .entry-nav a { color:var(--navy); text-decoration:none; }
+  .entry-nav a:hover { color:var(--burgundy); }
+  footer { background:var(--navy); color:#b9c1d2; text-align:center; padding:24px; font-size:.85rem; }
+</style>
+</head>
+<body>
+
+<div class="tartan"></div>
+
+<div class="masthead">
+  <a href="../index.html">
+    <div class="mini-mono">SP</div><br>
+    <span class="wordmark caps">Sitting Pretty Collective · Travel Journal</span>
+  </a>
+</div>
+
+<article>
+  <div class="entry-no caps">Entry No. 001 · July 2026 · Gardens &amp; Flowers</div>
+  <h1>Wildflowers on the Parkway</h1>
+  <div class="placeline">📍 Blue Ridge Parkway · Virginia</div>
+
+  <div class="weather">
+    <span class="wlabel caps">Field conditions there right now</span>
+    <span class="wnow" id="weather-now">checking the skies…</span>
+  </div>
+  <div style="text-align:center; margin-top:10px; font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; color:var(--hunter);">
+    Miles walked: 4½ — the fence line, twice</div>
+
+  <div class="fleuron">❦ ❦ ❦</div>
+
+  <p class="lede">Nobody plants the best gardens in Virginia.
+  They plant themselves, along four hundred miles of fence line.</p>
+
+  <figure class="figure">
+    <div class="frame">
+      <div class="photo cover" style="background:url('../images/susans.jpg') center/cover;"></div>
+      <a class="pinit" href="#">📌 Pin it</a>
+    </div>
+    <figcaption>Black-eyed Susans, shoulder to shoulder near milepost 85.</figcaption>
+  </figure>
+
+  <p>We left before coffee, which is how you know it was her idea. The fog was
+  still deciding what to do with itself when we pulled onto the Parkway, and
+  by the first overlook it had settled low into the valley, leaving the fence
+  lines to us.</p>
+
+  <p>That's where the flowers were — not in anybody's garden, but shoulder to
+  shoulder along the split rails: black-eyed Susans, Queen Anne's lace, and
+  a blue chicory that refused to be photographed the same color twice.</p>
+
+  <figure class="figure">
+    <div class="frame">
+      <div class="photo ph2" style="background:url('../images/meadow-lace.jpg') center/cover;"></div>
+      <a class="pinit" href="#">📌 Pin it</a>
+    </div>
+    <figcaption>Queen Anne's lace, holding the whole meadow.</figcaption>
+  </figure>
+
+  <p>We walked one stretch of fence for the better part of an hour and drove
+  away with two hundred photographs and no regrets. A man on a motorcycle
+  stopped to ask if we'd lost something. In a way, we told him, that was the
+  point.</p>
+
+  <figure class="figure">
+    <div class="frame">
+      <div class="photo ph3" style="background:url('../images/monarch.jpg') center/cover;"></div>
+      <a class="pinit" href="#">📌 Pin it</a>
+    </div>
+    <figcaption>A monarch, freeloading on the Queen Anne's lace.</figcaption>
+  </figure>
+
+  <div class="fieldbag">
+    <h2 class="caps">In the Field Bag</h2>
+    <div class="sub">what earned its place on this trip</div>
+    <ul>
+      <li>
+        <span class="item">Wildflower field guide</span><br>
+        <span class="why">Settled three roadside arguments; started two more.</span>
+        <div class="find-links"><span class="lbl">Like ours? Find it here:</span>
+          <!-- TODO: swap YOURTAG-20 for the real Amazon Associates tag -->
+          <a href="https://www.amazon.com/s?k=wildflowers+of+virginia+field+guide&tag=YOURTAG-20">field guides on Amazon →</a>
+        </div>
+      </li>
+      <li>
+        <span class="item">A thermos that outranks us both</span><br>
+        <span class="why">Coffee was still hot at the third overlook. Non-negotiable gear.</span>
+        <div class="find-links"><span class="lbl">Like ours? Find it here:</span>
+          <a href="https://www.amazon.com/s?k=stainless+steel+thermos+coffee&tag=YOURTAG-20">thermoses on Amazon →</a>
+        </div>
+      </li>
+    </ul>
+    <div class="disclosure">Some “find it here” links are affiliate links — if you buy through
+    them we earn a small commission at no extra cost to you. It keeps the tank full and the
+    journal free.</div>
+  </div>
+
+  <div class="pin-section">
+    <h2>Pinned from this entry</h2>
+    <div class="sub">The Pinterest posts for this trip — exactly as they'd publish, written for search.</div>
+
+    <div class="pin-card">
+      <div class="pin-thumb" style="background:url('../images/susans.jpg') center/cover;"></div>
+      <div class="pin-copy">
+        <span class="plabel">IMAGE PIN</span>
+        <h3>Wildflowers Along the Blue Ridge Parkway — Best Overlooks for Summer Blooms</h3>
+        <p>Black-eyed Susans and Queen Anne's lace line the split-rail fences near
+        milepost 85 every July. Our travel journal has the exact stops, photographed
+        at dawn. A perfect easy stop on a Virginia road trip.</p>
+        <div class="board">Saved to board: <strong>Gardens &amp; Wildflowers</strong> · links back to this entry</div>
+      </div>
+    </div>
+
+    <div class="pin-card">
+      <div class="pin-thumb" style="background:url('../images/meadow-lace.jpg') center/cover;"></div>
+      <div class="pin-copy">
+        <span class="plabel">IMAGE PIN</span>
+        <h3>Queen Anne's Lace in Morning Fog — Blue Ridge Mountains, Virginia</h3>
+        <p>Sometimes the fog does the styling for you. Shot along the Parkway just
+        after sunrise — more from this morning in our journal, Sitting Pretty
+        Collective.</p>
+        <div class="board">Saved to board: <strong>Gardens &amp; Wildflowers</strong> · links back to this entry</div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<div class="entry-nav caps">
+  <a href="../index.html">← The Journal</a>
+  <a href="entry-002-the-lane-behind-the-courthouse.html">Entry No. 002 →</a>
+</div>
+
+<div class="tartan"></div>
+<footer><span class="caps">Sitting Pretty Collective · Travel Journal</span></footer>
+
+<script>
+(function () {
+  // Live conditions near milepost 85, Blue Ridge Parkway (free Open-Meteo API, no key)
+  var el = document.getElementById('weather-now');
+  var codes = {0:['☀️','Clear'],1:['🌤️','Mostly clear'],2:['⛅','Partly cloudy'],3:['☁️','Overcast'],
+    45:['🌫️','Fog'],48:['🌫️','Freezing fog'],51:['🌦️','Light drizzle'],53:['🌦️','Drizzle'],
+    55:['🌧️','Heavy drizzle'],61:['🌧️','Light rain'],63:['🌧️','Rain'],65:['🌧️','Heavy rain'],
+    66:['🌧️','Freezing rain'],67:['🌧️','Freezing rain'],71:['🌨️','Light snow'],73:['🌨️','Snow'],
+    75:['❄️','Heavy snow'],77:['❄️','Snow grains'],80:['🌦️','Light showers'],81:['🌧️','Showers'],
+    82:['⛈️','Heavy showers'],85:['🌨️','Snow showers'],86:['🌨️','Snow showers'],
+    95:['⛈️','Thunderstorm'],96:['⛈️','Thunderstorm'],99:['⛈️','Thunderstorm']};
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=37.45&longitude=-79.65' +
+        '&current=temperature_2m,weather_code,wind_speed_10m' +
+        '&temperature_unit=fahrenheit&wind_speed_unit=mph')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var c = d.current, w = codes[c.weather_code] || ['🌡️', 'Conditions'];
+      el.textContent = w[0] + ' ' + Math.round(c.temperature_2m) + '°F · ' + w[1] +
+                       ' · wind ' + Math.round(c.wind_speed_10m) + ' mph';
+    })
+    .catch(function () { el.textContent = 'the skies are keeping it to themselves (offline)'; });
+})();
+</script>
+<script src="../lightbox.js" defer></script>
+</body>
+</html>

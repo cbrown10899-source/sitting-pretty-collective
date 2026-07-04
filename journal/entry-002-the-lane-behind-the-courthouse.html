@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entry No. 002 — The Lane Behind the Courthouse · Sitting Pretty Collective</title>
+<meta name="description" content="A lamp-lit lane, a general store with creaky floors, and what came home in the trunk — Entry No. 002 in the Sitting Pretty Collective travel journal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#1b2a44; --hunter:#28442e; --burgundy:#6e2131; --sage:#7c8f6d;
+          --cream:#f6f0e3; --ecru:#ece2cc; --brass:#a8853c; --ink:#23242c; --pinred:#b7081f; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--cream); color:var(--ink); line-height:1.75;
+         font-family:'Cormorant Garamond',Palatino,Georgia,serif; font-size:1.12rem; }
+  .caps { text-transform:uppercase; letter-spacing:.24em; }
+  .tartan { height:18px;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 30px, rgba(168,133,60,.55) 30px 33px, transparent 33px 62px, rgba(110,33,49,.5) 62px 67px, transparent 67px 96px, rgba(124,143,109,.35) 96px 99px),
+      repeating-linear-gradient(0deg, #1b2a44 0 7px, #21334f 7px 14px); }
+
+  .masthead { text-align:center; padding:26px 20px 18px; border-bottom:1px solid var(--brass); }
+  .masthead a { text-decoration:none; color:var(--navy); }
+  .masthead .mini-mono { display:inline-flex; width:44px; height:44px; border:2px solid var(--navy);
+      border-radius:50%; align-items:center; justify-content:center; font-weight:600; margin-bottom:6px; }
+  .masthead .wordmark { font-size:1rem; color:var(--navy); }
+
+  article { max-width:720px; margin:0 auto; padding:52px 24px 30px; }
+  .entry-no { text-align:center; color:var(--burgundy); font-size:.8rem; }
+  h1 { text-align:center; color:var(--navy); font-size:clamp(2rem,5vw,3rem); font-weight:500;
+       line-height:1.15; margin:12px 0 8px; }
+  .placeline { text-align:center; color:var(--hunter); font-size:.85rem; letter-spacing:.18em;
+               text-transform:uppercase; }
+  .fleuron { text-align:center; color:var(--brass); margin:18px 0 34px; letter-spacing:.5em; }
+
+  .weather { max-width:440px; margin:20px auto 0; border:1px solid var(--brass); background:#fffdf6;
+             text-align:center; padding:12px 20px; }
+  .weather .wlabel { display:block; font-size:.66rem; color:var(--burgundy); margin-bottom:4px; }
+  .weather .wnow { font-size:1.05rem; color:var(--hunter); }
+
+  .figure { margin:34px 0; }
+  .frame { border:1px solid var(--brass); padding:6px; background:#fffdf6; position:relative; }
+  .photo { display:flex; align-items:center; justify-content:center; color:var(--cream); font-size:4.5rem; }
+  .cover { height:380px; background:linear-gradient(160deg,#3a3226 0%,#8a7a63 55%,#d8b46a 100%); }
+  .ph2 { height:300px; background:linear-gradient(160deg,#4d4438,#b8a98c); }
+  .pinit { position:absolute; top:14px; right:14px; background:var(--pinred); color:#fff; border-radius:999px;
+           font-family:'Segoe UI',Arial,sans-serif; font-size:.75rem; font-weight:700; padding:7px 16px;
+           text-decoration:none; }
+  figcaption { text-align:center; font-style:italic; color:#6d675a; font-size:.98rem; padding-top:10px; }
+
+  .lede { font-family:'IM Fell English',Georgia,serif; font-style:italic; font-size:1.35rem;
+          color:var(--hunter); text-align:center; margin:0 0 28px; line-height:1.5; }
+  p + p { margin-top:18px; }
+
+  .finds { border:1px solid var(--brass); background:#fffdf6; margin-top:40px; padding:24px 26px; }
+  .finds h2 { text-align:center; color:var(--navy); font-weight:500; font-size:1.4rem; }
+  .finds .sub { text-align:center; font-style:italic; color:#8b8574; font-size:.9rem; margin-bottom:16px; }
+  .finds table { width:100%; border-collapse:collapse; }
+  .finds td { padding:10px 6px; border-top:1px dotted #cdbf9d; vertical-align:top; }
+  .finds td:last-child { text-align:right; color:var(--hunter); white-space:nowrap; }
+  .finds .item { font-weight:600; color:var(--navy); }
+  .finds .from { font-size:.9rem; font-style:italic; color:#6d675a; }
+  .find-links { font-size:.88rem; margin-top:6px; }
+  .find-links .lbl { color:var(--burgundy); font-style:italic; }
+  .find-links a { color:var(--hunter); text-decoration:underline; text-decoration-color:var(--brass); }
+  .find-links a:hover { color:var(--burgundy); }
+  .disclosure { text-align:center; font-style:italic; font-size:.84rem; color:#8b8574; margin-top:14px; }
+
+  .pin-section { background:#fffdf6; border:1px solid #ddd2b8; margin:46px 0 10px; padding:28px; }
+  .pin-section h2 { text-align:center; color:var(--navy); font-weight:500; font-size:1.5rem; }
+  .pin-section .sub { text-align:center; font-style:italic; color:#8b8574; font-size:.92rem; margin:4px 0 22px; }
+  .pin-card { display:flex; gap:18px; align-items:flex-start; border:1px solid #e5dcc4; border-radius:14px;
+              overflow:hidden; background:#fff; }
+  .pin-card + .pin-card { margin-top:16px; }
+  .pin-thumb { width:150px; min-height:150px; align-self:stretch; display:flex; align-items:center;
+               justify-content:center; font-size:2.4rem; color:var(--cream); flex-shrink:0; }
+  .pin-copy { padding:14px 16px 14px 0; }
+  .pin-copy .plabel { font-size:.7rem; color:var(--pinred); font-weight:700;
+                      font-family:'Segoe UI',Arial,sans-serif; letter-spacing:.12em; }
+  .pin-copy h3 { color:var(--navy); font-size:1.15rem; font-weight:600; margin:4px 0; }
+  .pin-copy p { font-size:.95rem; color:#575349; margin:0; }
+  .pin-copy .board { font-size:.8rem; color:#8b8574; margin-top:8px; font-style:italic; }
+  .pin-copy .price { display:inline-block; margin-top:8px; border:1px solid var(--brass); color:var(--hunter);
+                     font-size:.8rem; padding:2px 10px; letter-spacing:.1em; }
+
+  .entry-nav { display:flex; justify-content:space-between; max-width:720px; margin:0 auto;
+               padding:26px 24px 56px; font-size:.85rem; }
+  .entry-nav a { color:var(--navy); text-decoration:none; }
+  .entry-nav a:hover { color:var(--burgundy); }
+  footer { background:var(--navy); color:#b9c1d2; text-align:center; padding:24px; font-size:.85rem; }
+</style>
+</head>
+<body>
+
+<div class="tartan"></div>
+
+<div class="masthead">
+  <a href="../index.html">
+    <div class="mini-mono">SP</div><br>
+    <span class="wordmark caps">Sitting Pretty Collective · Travel Journal</span>
+  </a>
+</div>
+
+<article>
+  <div class="entry-no caps">Entry No. 002 · July 2026 · Old Streets</div>
+  <h1>The Lane Behind the Courthouse</h1>
+  <div class="placeline">📍 Historic District · Small Town, Virginia</div>
+
+  <div class="weather">
+    <span class="wlabel caps">Field conditions there right now</span>
+    <span class="wnow" id="weather-now">checking the skies…</span>
+  </div>
+  <div style="text-align:center; margin-top:10px; font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; color:var(--hunter);">
+    Miles walked: 2¼ — mostly cobblestone</div>
+
+  <div class="fleuron">❦ ❦ ❦</div>
+
+  <p class="lede">Every good town keeps one street it forgot to modernize.
+  You find it by following the brick.</p>
+
+  <figure class="figure">
+    <div class="frame">
+      <div class="photo cover" style="background:url('../images/brick-lane.jpg') center/cover;"></div>
+      <a class="pinit" href="#">📌 Pin it</a>
+    </div>
+    <figcaption>The lane announcing itself — brick underfoot, flag flying.</figcaption>
+  </figure>
+
+  <p>We found it the usual way: parked badly, walked the wrong direction, and
+  ended up exactly where we should have been. Behind the courthouse the
+  asphalt gives up and the brick takes over, and with it comes a barber pole,
+  a bookshop that smells like rain, and a general store that has apparently
+  been "closing soon" since 1987.</p>
+
+  <p>The store is the kind of place with a ladder on rails and a proprietor
+  who calls the stock "inventory" ironically. We asked what was oldest in the
+  shop. He pointed at himself, then sold us a market basket like his
+  grandmother used to weave — and two jars of honey from a farm four miles up
+  the road.</p>
+
+  <figure class="figure">
+    <div class="frame">
+      <div class="photo ph2" style="background:url('../images/store-postcard.jpg') center/contain no-repeat, #fffdf6;"></div>
+      <a class="pinit" href="#">📌 Pin it</a>
+    </div>
+    <figcaption>The general store, from a postcard mailed long before us —
+    ladder on rails, cat not pictured, dignity intact.</figcaption>
+  </figure>
+
+  <div class="finds">
+    <h2 class="caps" style="font-size:1rem;">What Came Home in the Trunk</h2>
+    <div class="sub">the ledger of the day — each becomes a product pin below</div>
+    <table>
+      <tr><td>
+        <span class="item">Woven market basket</span><br>
+        <span class="from">The general store, from a weaver two counties over</span>
+        <div class="find-links"><span class="lbl">Like this? Find it here:</span>
+          <!-- TODO: real shop URL + affiliate tags once programs are approved -->
+          <a href="https://example.com/the-general-store">the maker's shop →</a> ·
+          <a href="https://www.etsy.com/search?q=hand+woven+market+basket">similar on Etsy →</a> ·
+          <a href="https://www.amazon.com/s?k=woven+market+basket&tag=YOURTAG-20">similar on Amazon →</a>
+        </div>
+      </td><td>$38</td></tr>
+      <tr><td>
+        <span class="item">Wildflower honey, two jars</span><br>
+        <span class="from">Hilltop farm stand, four miles north</span>
+        <div class="find-links"><span class="lbl">Like this? Find it here:</span>
+          <a href="https://example.com/hilltop-farm">the farm stand →</a> ·
+          <a href="https://www.amazon.com/s?k=virginia+wildflower+honey+raw&tag=YOURTAG-20">similar on Amazon →</a>
+        </div>
+      </td><td>$14</td></tr>
+      <tr><td>
+        <span class="item">Used field guide to Virginia wildflowers, 1968</span><br>
+        <span class="from">The bookshop that smells like rain</span>
+        <div class="find-links"><span class="lbl">Like this? Find it here:</span>
+          <a href="https://www.abebooks.com/servlet/SearchResults?kn=virginia+wildflowers+field+guide">vintage copies on AbeBooks →</a> ·
+          <a href="https://www.amazon.com/s?k=wildflowers+of+virginia+field+guide&tag=YOURTAG-20">modern edition on Amazon →</a>
+        </div>
+      </td><td>$6</td></tr>
+    </table>
+    <div class="disclosure">Some “find it here” links are affiliate links — if you buy through
+    them we earn a small commission at no extra cost to you. It keeps the tank full and the
+    journal free. Links straight to the makers earn us nothing but good karma.</div>
+  </div>
+
+  <div class="pin-section">
+    <h2>Pinned from this entry</h2>
+    <div class="sub">The Pinterest posts for this trip — image pins pull readers in, product pins credit the makers.</div>
+
+    <div class="pin-card">
+      <div class="pin-thumb" style="background:url('../images/brick-lane.jpg') center/cover;"></div>
+      <div class="pin-copy">
+        <span class="plabel">IMAGE PIN</span>
+        <h3>The Prettiest Brick Lane in Small-Town Virginia — Golden Hour on Court Street</h3>
+        <p>Lamp posts, brick underfoot, and storefronts that haven't changed since your
+        grandmother's day. Our journal entry has the town, the shops, and what we
+        brought home. Perfect stop for a Virginia small-town road trip.</p>
+        <div class="board">Saved to board: <strong>Quaint Old Streets</strong> · links back to this entry</div>
+      </div>
+    </div>
+
+    <div class="pin-card">
+      <div class="pin-thumb" style="background:linear-gradient(160deg,#a8853c,#e5cf9a);">🧺</div>
+      <div class="pin-copy">
+        <span class="plabel">PRODUCT PIN</span>
+        <h3>Hand-Woven Market Basket from a Virginia General Store</h3>
+        <p>Woven by a local maker and sold off a rail-ladder shelf in a store that's been
+        "closing soon" since 1987. We use ours every farmers-market Saturday.
+        Pin links to the shop so the maker gets the sale.</p>
+        <span class="price caps">$38 · links to the maker</span>
+        <div class="board">Saved to board: <strong>Shop Finds</strong></div>
+      </div>
+    </div>
+
+    <div class="pin-card">
+      <div class="pin-thumb" style="background:linear-gradient(160deg,#6e2131,#d9a5a0);">🍯</div>
+      <div class="pin-copy">
+        <span class="plabel">PRODUCT PIN</span>
+        <h3>Wildflower Honey from a Blue Ridge Farm Stand</h3>
+        <p>Two jars, four dollars of gas to find it, worth every mile. From the hilltop
+        farm north of the courthouse lane — details and directions in the journal.</p>
+        <span class="price caps">$7 / jar · links to the farm</span>
+        <div class="board">Saved to board: <strong>Shop Finds</strong></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<div class="entry-nav caps">
+  <a href="entry-001-wildflowers-on-the-parkway.html">← Entry No. 001</a>
+  <a href="../index.html">The Journal →</a>
+</div>
+
+<div class="tartan"></div>
+<footer><span class="caps">Sitting Pretty Collective · Travel Journal</span></footer>
+
+<script>
+(function () {
+  // Live conditions for the historic district (sample uses Lynchburg, VA coords;
+  // free Open-Meteo API, no key). Swap latitude/longitude per entry.
+  var el = document.getElementById('weather-now');
+  var codes = {0:['☀️','Clear'],1:['🌤️','Mostly clear'],2:['⛅','Partly cloudy'],3:['☁️','Overcast'],
+    45:['🌫️','Fog'],48:['🌫️','Freezing fog'],51:['🌦️','Light drizzle'],53:['🌦️','Drizzle'],
+    55:['🌧️','Heavy drizzle'],61:['🌧️','Light rain'],63:['🌧️','Rain'],65:['🌧️','Heavy rain'],
+    66:['🌧️','Freezing rain'],67:['🌧️','Freezing rain'],71:['🌨️','Light snow'],73:['🌨️','Snow'],
+    75:['❄️','Heavy snow'],77:['❄️','Snow grains'],80:['🌦️','Light showers'],81:['🌧️','Showers'],
+    82:['⛈️','Heavy showers'],85:['🌨️','Snow showers'],86:['🌨️','Snow showers'],
+    95:['⛈️','Thunderstorm'],96:['⛈️','Thunderstorm'],99:['⛈️','Thunderstorm']};
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=37.4137&longitude=-79.1422' +
+        '&current=temperature_2m,weather_code,wind_speed_10m' +
+        '&temperature_unit=fahrenheit&wind_speed_unit=mph')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var c = d.current, w = codes[c.weather_code] || ['🌡️', 'Conditions'];
+      el.textContent = w[0] + ' ' + Math.round(c.temperature_2m) + '°F · ' + w[1] +
+                       ' · wind ' + Math.round(c.wind_speed_10m) + ' mph';
+    })
+    .catch(function () { el.textContent = 'the skies are keeping it to themselves (offline)'; });
+})();
+</script>
+<script src="../lightbox.js" defer></script>
+</body>
+</html>

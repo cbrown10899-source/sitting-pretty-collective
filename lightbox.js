@@ -1,0 +1,195 @@
+/* Sitting Pretty Collective photo viewer — click a photo to open, ‹ › to toggle, click away to close.
+   "View on wall" shows the photo as a framed print in a scaled room (sofa = 84in). */
+(function () {
+  var css = [
+    '#bc-lb { position:fixed; inset:0; background:rgba(27,42,68,.94); z-index:1000;',
+    '  display:none; align-items:center; justify-content:center; flex-direction:column; }',
+    '#bc-lb.open { display:flex; }',
+    '#bc-lb .lb-frame { background:#f6f0e3; padding:10px; border:1px solid #a8853c;',
+    '  max-width:88vw; max-height:70vh; box-shadow:0 12px 48px rgba(0,0,0,.5); }',
+    '#bc-lb .lb-frame img { display:block; max-width:calc(88vw - 22px); max-height:calc(70vh - 22px); }',
+    '#bc-lb .lb-caption { color:#ece2cc; font-family:Georgia,serif; font-style:italic;',
+    '  margin-top:14px; font-size:1.05rem; text-align:center; max-width:80vw; }',
+    '#bc-lb .lb-count { color:#a8853c; font-size:.8rem; letter-spacing:.2em; margin-top:6px;',
+    '  font-family:Georgia,serif; }',
+    '#bc-lb button { background:none; border:1px solid #a8853c; color:#f6f0e3;',
+    '  font-size:1.6rem; line-height:1; padding:10px 16px; cursor:pointer; font-family:Georgia,serif; }',
+    '#bc-lb button:hover { background:#a8853c; color:#1b2a44; }',
+    '#bc-lb .lb-prev { position:absolute; left:18px; top:50%; transform:translateY(-50%); }',
+    '#bc-lb .lb-next { position:absolute; right:18px; top:50%; transform:translateY(-50%); }',
+    '#bc-lb .lb-close { position:absolute; top:16px; right:18px; font-size:1.1rem; }',
+    '#bc-lb .lb-wall-btn { position:absolute; top:16px; left:18px; font-size:.85rem; letter-spacing:.12em; }',
+    '.bc-lb-target { cursor:zoom-in; }',
+    /* ---- room scene: photo backdrops, calibrated per room in ROOMS below ---- */
+    '#bc-lb .lb-room { display:none; position:relative; width:min(88vw,64vh,620px);',
+    '  overflow:hidden; border:1px solid #a8853c; box-shadow:0 12px 48px rgba(0,0,0,.5);',
+    '  background:center/cover no-repeat; }',
+    '#bc-lb.wall .lb-room { display:block; }',
+    '#bc-lb.wall .lb-frame, #bc-lb.wall .lb-caption { display:none; }',
+    '#bc-lb .room-print { position:absolute; left:50%; transform:translateX(-50%);',
+    '  background:#f8f4e8; border:4px solid #3a2c1c; outline:1px solid #a8853c; padding:5px;',
+    '  box-shadow:0 10px 22px rgba(60,40,15,.45), 0 3px 6px rgba(60,40,15,.3); }',
+    '#bc-lb .room-print img { display:block; width:100%; height:100%; object-fit:cover; }',
+    '#bc-lb .room-tag { position:absolute; left:14px; bottom:10px; color:#fff; font-family:Georgia,serif;',
+    '  font-style:italic; font-size:.8rem; opacity:.9; text-shadow:0 1px 3px rgba(0,0,0,.6); }',
+    '#bc-lb .lb-sizes { display:none; margin-top:14px; gap:10px; }',
+    '#bc-lb.wall .lb-sizes { display:flex; }',
+    '#bc-lb .lb-sizes button { font-size:.85rem; letter-spacing:.1em; padding:8px 14px; }',
+    '#bc-lb .lb-sizes button.on { background:#a8853c; color:#1b2a44; }'
+  ].join('\n');
+  var style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  // Collect photos: framed background divs and real <img> tags
+  var items = [];
+  document.querySelectorAll('.photo, .pimg, .pin-thumb, img').forEach(function (el) {
+    var url = null, caption = '';
+    if (el.tagName === 'IMG') {
+      if (el.closest('#bc-lb')) return;
+      url = el.getAttribute('src');
+      caption = el.getAttribute('alt') || '';
+    } else {
+      var bg = el.style.backgroundImage || getComputedStyle(el).backgroundImage;
+      var m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+      if (m) url = m[1];
+    }
+    if (!url) return; // skip gradient placeholders
+    var fig = el.closest('figure');
+    if (fig) {
+      var fc = fig.querySelector('figcaption');
+      if (fc) caption = fc.textContent.trim();
+    }
+    if (!caption) {
+      var card = el.closest('.entry, .card, .pin, .story');
+      if (card) {
+        var h = card.querySelector('h2, h3, h4, .ptitle');
+        if (h) caption = h.textContent.trim();
+      }
+    }
+    items.push({ url: url, caption: caption });
+    el.classList.add('bc-lb-target');
+    el.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      open(items.findIndex(function (i) { return i.url === url; }));
+    });
+  });
+  if (!items.length) return;
+
+  var lb = document.createElement('div');
+  lb.id = 'bc-lb';
+  lb.innerHTML =
+    '<div class="lb-frame"><img alt=""></div>' +
+    '<div class="lb-room">' +
+    '  <div class="room-print"><img alt=""></div>' +
+    '  <div class="room-tag">sofa shown: 7 ft — prints to scale</div>' +
+    '</div>' +
+    '<div class="lb-caption"></div><div class="lb-count"></div>' +
+    '<div class="lb-sizes">' +
+    '  <button data-in="12">12&Prime; &middot; $45</button><button data-in="18">18&Prime; &middot; $70</button>' +
+    '  <button data-in="24" class="on">24&Prime; &middot; $95</button><button data-in="36">36&Prime; &middot; $145</button>' +
+    '</div>' +
+    '<div class="lb-rooms lb-sizes">' +
+    '  <button data-room="0" class="on">CHESTERFIELD</button><button data-room="1">LINEN</button>' +
+    '</div>' +
+    '<button class="lb-prev" title="Previous">&lsaquo;</button>' +
+    '<button class="lb-next" title="Next">&rsaquo;</button>' +
+    '<button class="lb-close" title="Close">CLOSE &times;</button>' +
+    '<button class="lb-wall-btn">VIEW ON WALL</button>';
+  document.body.appendChild(lb);
+
+  var idx = 0, wallMode = false, sizeIn = 24, roomIdx = 0;
+  var PRICES = { 12: 45, 18: 70, 24: 95, 36: 145 }; // mock pricing until the shop is real
+  var IMGBASE = location.pathname.indexOf('/journal/') >= 0 ? '../images/' : 'images/';
+  // Per-room calibration: sofaFraction = sofa width as share of image width,
+  // sofaInches = the real sofa size, wallY = vertical center of the hanging zone.
+  // sofaTopY = where the sofa back begins (share of image height); prints must hang above it
+  var ROOMS = [
+    { file: 'room.jpg',       name: 'CHESTERFIELD', ar: '1 / 1',       sofaFraction: 0.85, sofaInches: 84, wallY: 0.41, sofaTopY: 0.55, tag: 'sofa shown: 7 ft — prints to scale' },
+    { file: 'room-linen.jpg', name: 'LINEN',        ar: '1448 / 1086', sofaFraction: 0.73, sofaInches: 96, wallY: 0.32, sofaTopY: 0.58, tag: 'sofa shown: 8 ft — prints to scale' }
+  ];
+
+  function applyRoom() {
+    var R = ROOMS[roomIdx];
+    var room = lb.querySelector('.lb-room');
+    room.style.backgroundImage = 'url("' + IMGBASE + R.file + '")';
+    room.style.aspectRatio = R.ar;
+    lb.querySelector('.room-tag').textContent = R.tag;
+    lb.querySelectorAll('.lb-rooms button').forEach(function (b, i) {
+      b.classList.toggle('on', i === roomIdx);
+    });
+  }
+
+  function fitPrint() {
+    var img = lb.querySelector('.room-print img');
+    var R = ROOMS[roomIdx];
+    var probe = new Image();
+    probe.onload = function () {
+      var room = lb.querySelector('.lb-room');
+      var ppi = (room.clientWidth * R.sofaFraction) / R.sofaInches; // pixels per real inch
+      var ar = probe.naturalWidth / probe.naturalHeight;
+      var w, h, wIn, hIn;
+      if (ar >= 1) { w = sizeIn * ppi; h = w / ar; wIn = sizeIn; hIn = Math.round(sizeIn / ar); }
+      else { h = sizeIn * ppi; w = h * ar; hIn = sizeIn; wIn = Math.round(sizeIn * ar); }
+      var print = lb.querySelector('.room-print');
+      print.style.width = Math.round(w) + 'px';
+      print.style.height = Math.round(h) + 'px';
+      var top = room.clientHeight * R.wallY - h / 2;
+      // never let the print reach the sofa: keep its bottom edge above the sofa back
+      var maxTop = room.clientHeight * R.sofaTopY - h - 12;
+      top = Math.min(top, maxTop);
+      print.style.top = Math.max(8, Math.round(top)) + 'px';
+      lb.querySelector('.lb-count').textContent =
+        wIn + '″ × ' + hIn + '″ PRINT · $' + PRICES[sizeIn] + ' · ' + (idx + 1) + ' OF ' + items.length;
+    };
+    probe.src = img.src;
+  }
+
+  function show() {
+    var it = items[idx];
+    lb.querySelector('.lb-frame img').src = it.url;
+    lb.querySelector('.room-print img').src = it.url;
+    lb.querySelector('.lb-caption').textContent = it.caption;
+    if (wallMode) { fitPrint(); }
+    else { lb.querySelector('.lb-count').textContent = (idx + 1) + ' OF ' + items.length; }
+  }
+  function open(i) { idx = i < 0 ? 0 : i; setWall(false); show(); lb.classList.add('open'); }
+  function close() { lb.classList.remove('open'); }
+  function step(d) { idx = (idx + d + items.length) % items.length; show(); }
+  function setWall(on) {
+    wallMode = on;
+    lb.classList.toggle('wall', on);
+    lb.querySelector('.lb-wall-btn').textContent = on ? 'BACK TO PHOTO' : 'VIEW ON WALL';
+    if (on) applyRoom();
+    show();
+  }
+
+  lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+  lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+  lb.querySelector('.lb-close').addEventListener('click', function (e) { e.stopPropagation(); close(); });
+  lb.querySelector('.lb-wall-btn').addEventListener('click', function (e) { e.stopPropagation(); setWall(!wallMode); });
+  lb.querySelectorAll('.lb-sizes button[data-in]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      sizeIn = parseInt(b.getAttribute('data-in'), 10);
+      lb.querySelectorAll('.lb-sizes button[data-in]').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      fitPrint();
+    });
+  });
+  lb.querySelectorAll('.lb-rooms button').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      roomIdx = parseInt(b.getAttribute('data-room'), 10);
+      applyRoom();
+      fitPrint();
+    });
+  });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+})();

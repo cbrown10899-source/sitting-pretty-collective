@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!-- Sitting Pretty Collective — Travel Journal -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sitting Pretty Collective — A Travel Journal of Flowers, Nature &amp; Old Streets</title>
+<meta name="description" content="A husband-and-wife travel journal: gardens and wildflowers, quiet nature, and quaint old streets — photographed and written on the road.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#1b2a44; --hunter:#28442e; --burgundy:#6e2131; --rose:#a86477;
+    --sage:#7c8f6d; --cream:#f6f0e3; --ecru:#ece2cc; --brass:#a8853c; --ink:#23242c;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--cream); color:var(--ink); line-height:1.7;
+         font-family:'Cormorant Garamond',Palatino,'Palatino Linotype',Georgia,serif; font-size:1.05rem; }
+  .caps { text-transform:uppercase; letter-spacing:.24em; font-family:'Cormorant Garamond',Georgia,serif; }
+
+  /* ---- Tartan (original CSS weave) ---- */
+  .tartan {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 30px, rgba(168,133,60,.55) 30px 33px, transparent 33px 62px, rgba(110,33,49,.5) 62px 67px, transparent 67px 96px, rgba(124,143,109,.35) 96px 99px),
+      repeating-linear-gradient(0deg, transparent 0 30px, rgba(168,133,60,.35) 30px 32px, transparent 32px 62px, rgba(110,33,49,.35) 62px 66px),
+      repeating-linear-gradient(0deg, #1b2a44 0 7px, #21334f 7px 14px);
+  }
+  .tartan-band { height:22px; }
+
+  /* ---- Masthead ---- */
+  header { text-align:center; padding:44px 20px 24px; }
+  .monogram { width:80px; height:80px; margin:0 auto 16px; border:2px solid var(--navy); border-radius:50%;
+              display:flex; align-items:center; justify-content:center; position:relative; background:#fffdf6; }
+  .monogram::after { content:""; position:absolute; inset:5px; border:1px solid var(--brass); border-radius:50%; }
+  .monogram span { font-size:2.2rem; color:var(--navy); font-weight:600; }
+  header h1 { font-size:clamp(1.9rem,5vw,2.9rem); color:var(--navy); font-weight:600; letter-spacing:.1em; }
+  header h1 em { font-style:normal; color:var(--brass); }
+  .tagline { font-family:'IM Fell English',Georgia,serif; font-style:italic; color:var(--burgundy);
+             margin-top:8px; font-size:1.05rem; }
+  .fleuron { color:var(--brass); font-size:1.2rem; margin-top:6px; }
+
+  nav { text-align:center; padding:15px 10px; border-top:1px solid var(--brass); border-bottom:1px solid var(--brass);
+        background:var(--ecru); }
+  nav a { color:var(--navy); text-decoration:none; margin:0 16px; font-size:.82rem; white-space:nowrap; }
+  nav a:hover { color:var(--burgundy); }
+
+  /* ---- Hero ---- */
+  .hero { position:relative; min-height:56vh; display:flex; align-items:center; justify-content:center;
+          text-align:center; color:var(--cream);
+          background:linear-gradient(rgba(27,42,68,.55),rgba(40,68,46,.7)),
+                     url('images/overlook.jpg') center/cover; }
+  .hero-inner { max-width:700px; padding:64px 24px; }
+  .hero .kicker { color:#e5cf9a; font-size:.8rem; margin-bottom:18px; }
+  .hero h2 { font-size:clamp(1.9rem,4.8vw,3.2rem); font-weight:500; line-height:1.2; }
+  .hero p { font-family:'IM Fell English',Georgia,serif; font-style:italic; margin-top:16px; color:#efe7d2; font-size:1.1rem; }
+  .hero .btn { display:inline-block; margin-top:28px; color:var(--cream); border:1px solid var(--brass);
+               padding:12px 36px; text-decoration:none; font-size:.8rem; }
+  .hero .btn:hover { background:var(--brass); color:var(--navy); }
+
+  /* ---- Collections ---- */
+  .collections { max-width:1100px; margin:0 auto; padding:64px 24px 26px; }
+  .section-head { text-align:center; margin-bottom:44px; }
+  .section-head .caps { color:var(--burgundy); font-size:.78rem; }
+  .section-head h3 { color:var(--navy); font-size:2rem; font-weight:500; margin-top:6px; }
+  .section-head .fleuron { letter-spacing:.6em; }
+
+  .row { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:36px; }
+  .entry { background:#fffdf6; border:1px solid #d8cbab; padding:13px; }
+  .frame { border:1px solid var(--brass); padding:6px; position:relative; }
+  .photo { height:250px; display:flex; align-items:center; justify-content:center; font-size:4.2rem; color:var(--cream); }
+  .ph-flowers { background:linear-gradient(160deg,#6e2131 0%,#a86477 60%,#d9a5a0 100%); }
+  .ph-street  { background:linear-gradient(160deg,#4d4438 0%,#8a7a63 60%,#b8a98c 100%); }
+  .ph-nature  { background:linear-gradient(160deg,#28442e 0%,#57794f 60%,#9ab173 100%); }
+  .corner { position:absolute; top:10px; right:10px; background:rgba(246,240,227,.92); color:var(--hunter);
+            font-size:.72rem; padding:4px 12px; letter-spacing:.18em; text-transform:uppercase; }
+  .entry .body { padding:22px 12px 14px; text-align:center; }
+  .entry .no { color:var(--brass); font-size:.74rem; }
+  .entry h4 { color:var(--navy); font-size:1.45rem; font-weight:600; margin:6px 0 4px; }
+  .entry .loc { color:var(--burgundy); font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; }
+  .entry p { font-size:1rem; color:#575349; margin-top:10px; font-style:italic; }
+
+  /* ---- Pinterest shelf ---- */
+  .pin-shelf { background:#fffdf6; border-top:1px solid var(--brass); padding:64px 24px; }
+  .pin-shelf .inner { max-width:1100px; margin:0 auto; }
+  .pin-grid { columns:4 240px; column-gap:20px; margin-top:8px; }
+  .pin { break-inside:avoid; margin-bottom:20px; background:#fff; border:1px solid #ddd2b8;
+         border-radius:14px; overflow:hidden; position:relative; box-shadow:0 2px 10px rgba(27,42,68,.07); }
+  .pin .pimg { display:flex; align-items:center; justify-content:center; color:var(--cream); font-size:3rem; }
+  .pin .save { position:absolute; top:10px; right:10px; background:#b7081f; color:#fff; border-radius:999px;
+               font-family:'Segoe UI',Arial,sans-serif; font-size:.75rem; font-weight:700; padding:6px 14px; }
+  .pin .pbody { padding:12px 14px 14px; }
+  .pin .ptitle { color:var(--navy); font-weight:600; font-size:1.05rem; line-height:1.3; }
+  .pin .pmeta { font-size:.78rem; color:#8b8574; margin-top:4px; letter-spacing:.06em; }
+  .pin .price { display:inline-block; margin-top:8px; border:1px solid var(--brass); color:var(--hunter);
+                font-size:.8rem; padding:2px 10px; letter-spacing:.1em; }
+  .t1 { height:260px; background:linear-gradient(160deg,#6e2131,#a86477); }
+  .t2 { height:180px; background:linear-gradient(160deg,#4d4438,#b8a98c); }
+  .t3 { height:220px; background:linear-gradient(160deg,#28442e,#9ab173); }
+  .t4 { height:150px; background:linear-gradient(160deg,#1b2a44,#41608c); }
+  .t5 { height:200px; background:linear-gradient(160deg,#a8853c,#e5cf9a); }
+  .follow-row { text-align:center; margin-top:28px; }
+  .follow-btn { display:inline-block; background:#b7081f; color:#fff; text-decoration:none;
+                font-family:'Segoe UI',Arial,sans-serif; font-weight:700; font-size:.9rem;
+                padding:12px 30px; border-radius:999px; }
+  .follow-btn:hover { background:#8e0618; }
+  .follow-note { font-style:italic; color:#8b8574; font-size:.9rem; margin-top:10px; }
+
+  /* ---- Pull quote ---- */
+  .pull { text-align:center; max-width:640px; margin:0 auto; padding:48px 24px 64px; }
+  .pull .fleuron { font-size:1.4rem; }
+  .pull blockquote { font-family:'IM Fell English',Georgia,serif; font-style:italic; font-size:1.5rem;
+                     color:var(--hunter); line-height:1.45; margin-top:10px; }
+
+  /* ---- About ---- */
+  .about { background:var(--ecru); text-align:center; padding:60px 24px;
+           border-top:1px solid var(--brass); border-bottom:1px solid var(--brass); }
+  .about .caps { color:var(--burgundy); font-size:.78rem; }
+  .about h3 { color:var(--navy); font-size:1.8rem; font-weight:500; margin:8px 0 12px; }
+  .about p { max-width:580px; margin:0 auto; font-style:italic; color:#575349; font-size:1.08rem; }
+
+  footer { background:var(--navy); color:#b9c1d2; text-align:center; padding:28px 20px; font-size:.85rem; }
+  footer .brass { color:var(--brass); }
+</style>
+</head>
+<body>
+
+<div class="tartan tartan-band"></div>
+
+<header>
+  <div class="monogram"><span style="font-size:1.5rem; letter-spacing:.05em;">SP</span></div>
+  <h1 class="caps">Sitting <em>Pretty</em> Collective</h1>
+  <div class="tagline">flowers, quiet country, and the old streets between them</div>
+  <div class="fleuron">❦</div>
+</header>
+
+<nav class="caps">
+  <a href="#journal">The Journal</a><a href="#">Gardens &amp; Flowers</a><a href="#">Old Streets</a><a href="#">Nature</a><a href="#health">Health</a><a href="#pinterest">Pinterest</a><a href="#about">About</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker caps">Volume I · Summer 2026</div>
+    <h2>We stop for flower stands, follow lanes with no signs, and always take the long way home.</h2>
+    <p>A husband-and-wife travel journal, kept the old way — a photograph,
+    a place, and a few honest lines.</p>
+    <a class="btn caps" href="journal/entry-002-the-lane-behind-the-courthouse.html">Read the latest entry</a>
+  </div>
+</div>
+
+<div class="collections" id="journal">
+  <div class="section-head">
+    <div class="caps">From the Field</div>
+    <h3>The Collections</h3>
+    <div class="fleuron">❦ ❦ ❦</div>
+  </div>
+  <div class="row">
+    <div class="entry">
+      <div class="frame">
+        <div class="photo" style="background:url('images/marigold-barrel.jpg') center/cover;"></div>
+        <div class="corner">Gardens</div>
+      </div>
+      <div class="body">
+        <div class="no caps">Entry No. 001</div>
+        <h4><a href="journal/entry-001-wildflowers-on-the-parkway.html" style="color:inherit; text-decoration:none;">Wildflowers on the Parkway</a></h4>
+        <div class="loc">Blue Ridge Parkway, Virginia</div>
+        <p>Nobody plants the best gardens in Virginia — they plant themselves,
+        along four hundred miles of fence line.</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="frame">
+        <div class="photo" style="background:url('images/brick-lane.jpg') center/cover;"></div>
+        <div class="corner">Old Streets</div>
+      </div>
+      <div class="body">
+        <div class="no caps">Entry No. 002</div>
+        <h4><a href="journal/entry-002-the-lane-behind-the-courthouse.html" style="color:inherit; text-decoration:none;">The Lane Behind the Courthouse</a></h4>
+        <div class="loc">Historic District, Virginia</div>
+        <p>Every good town keeps one street it forgot to modernize. You find
+        it by following the brick.</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="frame">
+        <div class="photo" style="background:url('images/otter-lake.jpg') center/cover;"></div>
+        <div class="corner">Nature</div>
+      </div>
+      <div class="body">
+        <div class="no caps">Entry No. —</div>
+        <h4>Open Country</h4>
+        <div class="loc">Trails, overlooks, still water</div>
+        <p>Quiet places, photographed early, written about slowly.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="collections" id="health" style="padding-top:0;">
+  <div class="section-head">
+    <div class="caps">The Daily Walk</div>
+    <h3>Kept in Good Health</h3>
+    <div class="fleuron">❦ ❦ ❦</div>
+    <p style="font-style:italic; color:#575349; max-width:560px; margin:10px auto 0;">
+      Travel is our exercise plan: miles on foot, farm-stand food, and air
+      that hasn't been indoors all week. Every entry logs the walking.</p>
+  </div>
+  <div class="row">
+    <div class="entry">
+      <div class="frame">
+        <div class="photo" style="height:250px; background:url('images/overlook.jpg') center/cover;"></div>
+        <div class="corner">Walks</div>
+      </div>
+      <div class="body">
+        <div class="no caps">Miles logged · Volume I: 23½ mi</div>
+        <h4>Walks &amp; Trails</h4>
+        <div class="loc">Overlook loops, town squares, fence lines</div>
+        <p>Every view on this site was earned on foot. We log the miles in
+        each entry — the long way home counts double.</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="frame">
+        <div class="photo" style="height:250px; background:url('images/lavender-farm.jpg') center/cover;"></div>
+        <div class="corner">Market Fare</div>
+      </div>
+      <div class="body">
+        <div class="no caps">Eaten within sight of where it grew</div>
+        <h4>Farm-Stand Table</h4>
+        <div class="loc">Honey, peaches, whatever the sign says</div>
+        <p>Our nutrition philosophy is simple: if a farm stand sells it and
+        a dog named Biscuit guards it, it's health food.</p>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="frame">
+        <div class="photo" style="height:250px; background:url('images/otter-lake.jpg') center/cover;"></div>
+        <div class="corner">Fresh Air</div>
+      </div>
+      <div class="body">
+        <div class="no caps">Doctor's orders, loosely interpreted</div>
+        <h4>Slow Mornings</h4>
+        <div class="loc">Fog, porches, coffee out of a thermos</div>
+        <p>The cure for most things is a quiet hour outside before the day
+        gets opinions. We take ours by still water.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pin-shelf" id="pinterest">
+  <div class="inner">
+    <div class="section-head">
+      <div class="caps">The Trading Post</div>
+      <h3>Pinned Along the Way</h3>
+      <div class="fleuron">❦ ❦ ❦</div>
+      <p style="font-style:italic; color:#575349; max-width:560px; margin:10px auto 0;">
+        Finds from little shops and favorite photographs, saved to our
+        Pinterest — products link to the makers, images link to the journal
+        entry they came from.</p>
+    </div>
+
+    <div class="pin-grid">
+      <div class="pin">
+        <div class="pimg t1" style="background:url('images/lavender-farm.jpg') center/cover;"></div><span class="save">Save</span>
+        <div class="pbody">
+          <div class="ptitle">Dried lavender bundles from the farm stand</div>
+          <div class="pmeta">Product pin · links to the maker's shop</div>
+          <span class="price caps">$14</span>
+        </div>
+      </div>
+      <div class="pin">
+        <div class="pimg t2" style="background:url('images/brick-lane.jpg') center/cover;"></div><span class="save">Save</span>
+        <div class="pbody">
+          <div class="ptitle">The lamp-lit lane behind the old courthouse</div>
+          <div class="pmeta">Image pin · links to Entry No. 002</div>
+        </div>
+      </div>
+      <div class="pin">
+        <div class="pimg t5">🕯</div><span class="save">Save</span>
+        <div class="pbody">
+          <div class="ptitle">Hand-poured candle, "Cedar &amp; Saddle"</div>
+          <div class="pmeta">Product pin · links to the maker's shop</div>
+          <span class="price caps">$22</span>
+        </div>
+      </div>
+      <div class="pin">
+        <div class="pimg t3" style="background:url('images/meadow-lace.jpg') center/cover;"></div><span class="save">Save</span>
+        <div class="pbody">
+          <div class="ptitle">Wildflowers along the split-rail fence</div>
+          <div class="pmeta">Image pin · links to Entry No. 001</div>
+        </div>
+      </div>
+      <div class="pin">
+        <div class="pimg t4">🧺</div><span class="save">Save</span>
+        <div class="pbody">
+          <div class="ptitle">Market basket from the general store</div>
+          <div class="pmeta">Product pin · links to the maker's shop</div>
+          <span class="price caps">$38</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="follow-row">
+      <!-- TODO: replace YOURUSERNAME with the real Pinterest handle once the page exists -->
+      <a class="follow-btn" href="https://www.pinterest.com/YOURUSERNAME/">Follow Sitting Pretty Collective on Pinterest</a>
+      <div class="follow-note">These are sample pins — once your Pinterest page exists, the live
+      board appears here automatically.</div>
+    </div>
+
+    <!--
+      LIVE PINTEREST EMBED — uncomment when the account exists and replace
+      YOURUSERNAME. This official widget replaces the sample grid above with
+      the real, always-current board:
+
+      <a data-pin-do="embedUser"
+         data-pin-board-width="1000"
+         data-pin-scale-height="360"
+         data-pin-scale-width="115"
+         href="https://www.pinterest.com/YOURUSERNAME/"></a>
+      <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    -->
+  </div>
+</div>
+
+<div class="pull">
+  <div class="fleuron">❦</div>
+  <blockquote>“Anywhere with flowers in the window boxes is worth
+  pulling over for.”</blockquote>
+  <div style="max-width:520px; margin:30px auto 0; background:#fffdf6; border:1px solid #d8cbab; padding:13px;">
+    <div style="border:1px solid var(--brass); padding:6px;">
+      <img src="images/lavender-bw.jpg" alt="In the lavender field, mountain behind" style="width:100%; display:block;">
+    </div>
+    <div style="text-align:center; font-style:italic; color:#6d675a; font-size:.95rem; padding-top:10px;">
+      The lavender field — from our own camera.
+    </div>
+  </div>
+</div>
+
+<div class="about" id="about">
+  <div class="caps">The Travelers</div>
+  <div style="max-width:380px; margin:20px auto 24px; background:#fffdf6; border:1px solid #d8cbab; padding:13px;">
+    <div style="border:1px solid var(--brass); padding:6px;">
+      <img src="images/travelers.jpg" alt="The two of us at the rose gate" style="width:100%; display:block;">
+    </div>
+  </div>
+  <h3>Two of us, one camera, a weakness for window boxes.</h3>
+  <p>We keep this journal so the trips stay ours long after the trunk is
+  unpacked — every entry a photograph, a place, and the story of how we
+  found it.</p>
+</div>
+
+<div class="tartan tartan-band"></div>
+
+<footer>
+  <span class="caps">Sitting Pretty Collective · Travel Journal</span><br>
+  <span class="brass">❦</span> photographed &amp; written on the road <span class="brass">❦</span>
+</footer>
+
+<script src="lightbox.js" defer></script>
+</body>
+</html>
