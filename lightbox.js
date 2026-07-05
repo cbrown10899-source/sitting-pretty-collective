@@ -51,6 +51,7 @@
   // Collect photos: framed background divs and real <img> tags
   var items = [];
   document.querySelectorAll('.photo, .pimg, .pin-thumb, img').forEach(function (el) {
+    if (el.closest('a[href]')) return; // images inside links (Etsy Favorites etc.) keep their link
     var url = null, caption = '';
     if (el.tagName === 'IMG') {
       if (el.closest('#bc-lb')) return;
