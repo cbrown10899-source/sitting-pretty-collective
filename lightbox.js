@@ -38,7 +38,11 @@
     '#bc-lb .lb-sizes button.on { background:#a8853c; color:#1b2a44; }',
     '#bc-lb .lb-sizes button:disabled { opacity:.3; cursor:not-allowed; }',
     '#bc-lb .lb-sizes button:disabled:hover { background:none; color:#f6f0e3; }',
-    '#bc-lb .lb-pin { position:absolute; top:16px; left:200px; font-size:.85rem; letter-spacing:.12em; }'
+    '#bc-lb .lb-pin { position:absolute; top:16px; left:200px; font-size:.85rem; letter-spacing:.12em; }',
+    '#bc-lb a.lb-buy { display:inline-block; margin-top:14px; background:#a8853c; color:#1b2a44;',
+    '  border:1px solid #f6f0e3; padding:11px 28px; font-size:.85rem; letter-spacing:.16em;',
+    '  font-family:Georgia,serif; text-decoration:none; font-weight:600; }',
+    '#bc-lb a.lb-buy:hover { background:#f6f0e3; }'
   ].join('\n');
   var style = document.createElement('style');
   style.textContent = css;
@@ -118,6 +122,7 @@
     '  <button data-room="0" class="on">LIVING ROOM</button><button data-room="1">BEDROOM</button>' +
     '  <button data-room="2">BATH</button><button data-room="3">DESK</button>' +
     '</div>' +
+    '<a class="lb-buy" href="' + SHOP_URL + '" target="_blank" rel="noopener">PURCHASE THIS PRINT ↗</a>' +
     '<button class="lb-prev" title="Previous">&lsaquo;</button>' +
     '<button class="lb-next" title="Next">&rsaquo;</button>' +
     '<button class="lb-close" title="Close">CLOSE &times;</button>' +
@@ -127,6 +132,10 @@
 
   var idx = 0, wallMode = false, sizeIn = 24, roomIdx = 0;
   var PRICES = { 12: 45, 18: 70, 24: 95, 36: 145 }; // mock pricing until the shop is real
+  var SHOP_URL = 'https://www.etsy.com/shop/sittingprettycollective';
+  // per-photo Etsy listings — add 'images/<file>.jpg': 'https://www.etsy.com/listing/…' as prints go up;
+  // photos without an entry link to the shop front
+  var LISTINGS = {};
   var IMGBASE = location.pathname.indexOf('/journal/') >= 0 ? '../images/' : 'images/';
   // Per-room calibration: sofaFraction = sofa width as share of image width,
   // sofaInches = the real sofa size, wallY = vertical center of the hanging zone.
@@ -195,6 +204,7 @@
     lb.querySelector('.lb-frame img').src = it.url;
     lb.querySelector('.room-print img').src = it.url;
     lb.querySelector('.lb-caption').textContent = it.caption;
+    lb.querySelector('.lb-buy').href = LISTINGS[it.url] || SHOP_URL;
     if (wallMode) { fitPrint(); }
     else { lb.querySelector('.lb-count').textContent = (idx + 1) + ' OF ' + items.length; }
   }
