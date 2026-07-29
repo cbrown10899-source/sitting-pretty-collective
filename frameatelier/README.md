@@ -15,6 +15,7 @@ Collective site.**
 | `app/analytics-events.js` | The five Plausible funnel events — only needed if/when Plausible is added (see below). |
 | `app/chroma-photo-guide.js` | Guided tool for the **Analyze My Colors flow only**: pre-shoot wizard (real white paper under the chin, indirect daylight, no filters) + on-device white-paper check — the user taps the physical paper in their photo and the sampled pixels are judged for warm/cool/green cast, under- or over-exposure, with a retake prompt. Wire the button: `FAPhotoGuide.maybeShow({ onProceed: openChromaPhotoPicker })`. |
 | `app/chroma-photo-guide-demo.html` | Standalone demo of that flow — keep next to the JS file and open in a browser to try it end to end. |
+| `app/chroma-guide-autowire.js` | **Go-live shortcut:** copy both JS files into the site folder root and add two script tags just before `</body>` in the app's `index.html`: `<script src="/chroma-photo-guide.js"></script>` then `<script src="/chroma-guide-autowire.js"></script>`. It finds the Analyze My Colors button by its visible text, shows the guide, runs the guided camera, and hands the captured photo to the app through its own file input — no app-code changes. If auto-detection misses, set `analyzeSelector`/`inputSelector` at the top of the file. |
 | `runbook.md` | The original implementation runbook, for reference. |
 
 ## Already verified — no further file work needed
