@@ -27,8 +27,9 @@ input[type=file]{display:none}
 <body>
 <div class="demo">
   <h1>Analyze My Colors</h1>
-  <p class="sub">Demo of the guided flow: wizard → guided camera (face oval + paper zone, both must go green) or library → tap the white paper → verdict. Everything runs on this device.</p>
+  <p class="sub">Mirrors the live app: “Analyze My Colors” behaves as today (library picker). The separate “Take an Image” button runs the wizard → guided camera (face oval + paper zone, both green to unlock the shutter). Everything runs on this device.</p>
   <button class="analyze" id="analyze">Analyze My Colors</button>
+  <button class="analyze" id="take" style="margin-top:10px;background:transparent;color:#F7F4EF;border:1px solid #2A2724">◉ Take an Image</button>
   <input type="file" id="picker" accept="image/*">
   <div class="stage">
     <p class="hint" id="hint" style="display:none">Now tap the white paper in your photo to check the light.</p>
@@ -480,6 +481,9 @@ function showCapture(canvas) {
 }
 
 document.getElementById('analyze').addEventListener('click', function () {
+  picker.click(); // original behavior, untouched
+});
+document.getElementById('take').addEventListener('click', function () {
   FAPhotoGuide.maybeShow({
     enableCamera: true,
     onProceed: function (mode) { if (mode === 'library') picker.click(); },
