@@ -175,10 +175,25 @@
     inp.click();
   }
 
+  function noticeThenFallback(opts) {
+    injectCss();
+    var veil = document.createElement('div');
+    veil.className = 'fa-guide-veil';
+    veil.innerHTML = '<div class="fa-guide" role="alertdialog" aria-label="Guided camera unavailable">' +
+      '<p class="eyebrow">Heads up</p>' +
+      '<h2>Guided camera can\u2019t run here</h2>' +
+      '<p class="why">This page couldn\u2019t get live camera access, so the face oval, paper zone and green checks can\u2019t be shown. Your phone\u2019s own camera will open instead \u2014 follow the setup steps from the guide, hold the white paper under your chin, then tap it in the preview afterwards to check the light.</p>' +
+      '<div class="row"><button type="button" class="skip">Cancel</button>' +
+      '<button type="button" class="go">Open my camera</button></div></div>';
+    veil.querySelector('.go').addEventListener('click', function () { veil.remove(); fallbackCapture(opts); });
+    veil.querySelector('.skip').addEventListener('click', function () { veil.remove(); });
+    document.body.appendChild(veil);
+  }
+
   function openCamera(opts) {
     opts = opts || {};
     injectCss();
-    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { fallbackCapture(opts); return; }
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { noticeThenFallback(opts); return; }
 
     var root = document.createElement('div');
     root.className = 'fa-cam';
@@ -225,7 +240,7 @@
         if (!timer) timer = setInterval(tick, 500);
       }).catch(function () {
         stop();
-        fallbackCapture(opts);
+        noticeThenFallback(opts);
       });
     }
 
