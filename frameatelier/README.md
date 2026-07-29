@@ -13,6 +13,8 @@ Collective site.**
 | `site-root/` | **Copy its contents into the site folder root as-is.** Contains `robots.txt`, `sitemap.xml` (with `lastmod`), `og/og-cover.jpg` (1200×630), the full `color-analysis/` section — hub plus twelve season pages — a `_headers` file (security/caching, scoped to the new routes only), and a branded `404.html`. |
 | `app/photo-tips-panel.html` | Self-contained collapsed `<details>` panel (no JS, scoped CSS under `.fa-phototips`). Paste the markup directly above or below the "Choose a Photo" button in the Chroma flow, plus a text link "New to this? How to take the photo →" pointing to `https://frameatelier.app/color-analysis/#how-to-photograph`. |
 | `app/analytics-events.js` | The five Plausible funnel events — only needed if/when Plausible is added (see below). |
+| `app/chroma-photo-guide.js` | Guided tool for the **Analyze My Colors flow only**: pre-shoot wizard (real white paper under the chin, indirect daylight, no filters) + on-device white-paper check — the user taps the physical paper in their photo and the sampled pixels are judged for warm/cool/green cast, under- or over-exposure, with a retake prompt. Wire the button: `FAPhotoGuide.maybeShow({ onProceed: openChromaPhotoPicker })`. |
+| `app/chroma-photo-guide-demo.html` | Standalone demo of that flow — keep next to the JS file and open in a browser to try it end to end. |
 | `runbook.md` | The original implementation runbook, for reference. |
 
 ## Already verified — no further file work needed
