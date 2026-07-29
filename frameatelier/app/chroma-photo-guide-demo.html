@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chroma photo guide — demo</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#141311;color:#F7F4EF;min-height:100vh;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6;
+  display:flex;align-items:center;justify-content:center}
+.demo{width:100%;max-width:440px;padding:32px 22px;text-align:center}
+h1{font-weight:500;font-size:22px;margin:0 0 6px}
+p.sub{color:#8A8378;font-size:14px;margin:0 0 26px}
+button.analyze{font:inherit;cursor:pointer;width:100%;border:0;border-radius:12px;
+  background:#F7F4EF;color:#141311;padding:16px;font-size:16px;font-weight:500}
+.stage{margin-top:22px;text-align:left}
+.stage .hint{font-size:13px;color:#8A8378;margin:0 0 8px}
+#preview-wrap{position:relative;display:none;border:1px solid #2A2724;border-radius:12px;overflow:hidden}
+#preview{display:block;width:100%;height:auto;cursor:crosshair}
+#tapdot{position:absolute;width:18px;height:18px;border:2px solid #F7F4EF;border-radius:50%;
+  transform:translate(-50%,-50%);pointer-events:none;display:none;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+#result{}
+input[type=file]{display:none}
+</style>
+</head>
+<body>
+<div class="demo">
+  <h1>Analyze My Colors</h1>
+  <p class="sub">Demo of the guided flow: wizard → photo → tap the white paper → verdict. Everything runs on this device.</p>
+  <button class="analyze" id="analyze">Analyze My Colors</button>
+  <input type="file" id="picker" accept="image/*">
+  <div class="stage">
+    <p class="hint" id="hint" style="display:none">Now tap the white paper in your photo to check the light.</p>
+    <div id="preview-wrap">
+      <img id="preview" alt="Your chosen photo">
+      <div id="tapdot"></div>
+    </div>
+    <div id="result"></div>
+  </div>
+</div>
+
+<script src="chroma-photo-guide.js"></script>
+<script>
+var picker = document.getElementById('picker');
+var preview = document.getElementById('preview');
+var wrap = document.getElementById('preview-wrap');
+var hint = document.getElementById('hint');
+var dot = document.getElementById('tapdot');
+var resultBox = document.getElementById('result');
+
+document.getElementById('analyze').addEventListener('click', function () {
+  FAPhotoGuide.maybeShow({ onProceed: function () { picker.click(); } });
+});
+
+picker.addEventListener('change', function () {
+  var f = picker.files && picker.files[0];
+  if (!f) return;
+  var url = URL.createObjectURL(f);
+  preview.onload = function () {
+    wrap.style.display = 'block';
+    hint.style.display = 'block';
+    resultBox.innerHTML = '';
+    dot.style.display = 'none';
+  };
+  preview.src = url;
+});
+
+preview.addEventListener('click', function (e) {
+  var rect = preview.getBoundingClientRect();
+  var relX = e.clientX - rect.left, relY = e.clientY - rect.top;
+  dot.style.left = relX + 'px'; dot.style.top = relY + 'px'; dot.style.display = 'block';
+  var x = Math.round(relX * (preview.naturalWidth / rect.width));
+  var y = Math.round(relY * (preview.naturalHeight / rect.height));
+  var res = FAPhotoGuide.whiteCheck(preview, x, y);
+  FAPhotoGuide.renderResult(resultBox, res);
+});
+</script>
+</body>
+</html>
