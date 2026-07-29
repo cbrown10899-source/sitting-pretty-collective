@@ -27,7 +27,7 @@ input[type=file]{display:none}
 <body>
 <div class="demo">
   <h1>Analyze My Colors</h1>
-  <p class="sub">Demo of the guided flow: wizard → photo → tap the white paper → verdict. Everything runs on this device.</p>
+  <p class="sub">Demo of the guided flow: wizard → guided camera (face oval + paper zone, both must go green) or library → tap the white paper → verdict. Everything runs on this device.</p>
   <button class="analyze" id="analyze">Analyze My Colors</button>
   <input type="file" id="picker" accept="image/*">
   <div class="stage">
@@ -49,8 +49,22 @@ var hint = document.getElementById('hint');
 var dot = document.getElementById('tapdot');
 var resultBox = document.getElementById('result');
 
+function showCapture(canvas) {
+  preview.onload = function () {
+    wrap.style.display = 'block';
+    hint.style.display = 'block';
+    resultBox.innerHTML = '';
+    dot.style.display = 'none';
+  };
+  preview.src = canvas.toDataURL('image/jpeg', 0.92);
+}
+
 document.getElementById('analyze').addEventListener('click', function () {
-  FAPhotoGuide.maybeShow({ onProceed: function () { picker.click(); } });
+  FAPhotoGuide.maybeShow({
+    enableCamera: true,
+    onProceed: function (mode) { if (mode === 'library') picker.click(); },
+    onCapture: showCapture
+  });
 });
 
 picker.addEventListener('change', function () {
