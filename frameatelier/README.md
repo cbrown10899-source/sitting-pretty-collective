@@ -10,16 +10,23 @@ Collective site.**
 | Path | What it is |
 |---|---|
 | `head.html` | Corrected `<head>` block + SoftwareApplication JSON-LD. Merge into the homepage's `index.html` (replace matching tags, keep icons/manifest/styles). |
-| `site-root/` | **Copy its contents into the site folder root as-is.** Contains `robots.txt`, `sitemap.xml`, `og/og-cover.jpg` (1200×630), and the full `color-analysis/` section — hub page plus all twelve season pages. |
+| `site-root/` | **Copy its contents into the site folder root as-is.** Contains `robots.txt`, `sitemap.xml` (with `lastmod`), `og/og-cover.jpg` (1200×630), the full `color-analysis/` section — hub plus twelve season pages — a `_headers` file (security/caching, scoped to the new routes only), and a branded `404.html`. |
 | `app/photo-tips-panel.html` | Self-contained collapsed `<details>` panel (no JS, scoped CSS under `.fa-phototips`). Paste the markup directly above or below the "Choose a Photo" button in the Chroma flow, plus a text link "New to this? How to take the photo →" pointing to `https://frameatelier.app/color-analysis/#how-to-photograph`. |
 | `app/analytics-events.js` | The five Plausible funnel events — only needed if/when Plausible is added (see below). |
 | `runbook.md` | The original implementation runbook, for reference. |
 
 ## Already verified — no further file work needed
 
-- All 13 pages: correct trailing-slash canonicals, full og/twitter tags,
-  Article + FAQPage + BreadcrumbList schema (ItemList on the hub), absolute
-  cross-links, no `noindex`, no executable scripts.
+- All 13 pages: correct trailing-slash canonicals, full og/twitter tags
+  including `og:image:alt`/`twitter:image:alt`, `max-image-preview:large`,
+  Article + FAQPage + BreadcrumbList schema (ItemList on the hub) with the
+  FAQ text visible on-page as Google requires, absolute cross-links, no
+  `noindex`, no executable scripts.
+- **404.html caveat:** Cloudflare Pages direct-upload projects without a
+  `404.html` fall back to serving `index.html` for unknown paths. If any
+  live URL (e.g. `/privacy`) currently depends on that fallback rather than
+  a real file, adding `404.html` will surface it as a 404 — check the four
+  legal URLs after deploy and remove `404.html` if anything breaks.
 - Copy is already American English (runbook step 5: nothing to change).
 - `og/og-cover.jpg` exists at exactly 1200×630 (runbook step 6: done).
 - `sitemap.xml` is valid XML and includes the homepage, all 13

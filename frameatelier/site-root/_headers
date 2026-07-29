@@ -1,0 +1,16 @@
+# Cloudflare Pages headers — scoped so nothing touches the app's own routes.
+
+/color-analysis/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=3600
+
+/og/*
+  Cache-Control: public, max-age=86400
+  X-Content-Type-Options: nosniff
+
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600
